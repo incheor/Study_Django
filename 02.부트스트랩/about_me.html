@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>자기소개 페이지 입니다.</title>
+        <link href = "./bootstrap4/css/bootstrap.min.css" rel = "stylesheet" type = "text/css">
+
+        <script type = "text/javascript" src = "now_time.js"></script>
+    </head>
+    <body>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light con">
+            <div class = "container" >
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="./index.html">장고 공부</a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="./index.html">Home</a></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="./blog_list.html">Bolg</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="./about_me.html">About</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Dropdown
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <li><a class="dropdown-item" href="#">Action</a></li>
+                                    <li><a class="dropdown-item" href="#">Another action</a></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <ul class = "navbar-nav ml-auto">
+                            <li class = "nav-link" href = "#">로그인</li>
+                        </ul>
+                        <form class="d-flex">
+                            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                            <button class="btn btn-outline-success" type="submit">Search</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        <div class = "container">
+            <div class ="row my-3">
+                <div class = "col-9">
+                    <h1>About Me</h1>
+                    <h2>안녕하세요.</h2>
+                    <p>HTML, CSS, JS, Django로 웹 사이트 만들기 연습을 시작했습니다.</p>
+                    <button onclick = 'nowTime()'>현재시간</button>
+                    <hr/>
+                    <a href = "./index.html">첫 화면으로 가기</a>
+                </div>
+                <div class = "col-3">
+                    <img src = "./images/centum.jpg" class = "ima-fluid w-100">
+                </div>
+            </div>
+            <hr/>
+            <div class="row">
+                <div class = "col-12">
+                    <h3>사진들</h3>>
+                </div>
+                <div class="col-sm col-lg-6 bg-info">
+                    <img src= "./images/centum_1.jpg" class = "img-fluid">
+                </div>
+                <div class="col-sm col-lg-3 bg-secondary">
+                    <img src= "./images/centum_2.jpg" class = "img-fluid">
+                </div>
+                <div class="col-sm col-lg-3 bg-warning">
+                    <img src= "./images/centum_3.jpg" class = "img-fluid">
+                </div>
+            </div>
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+    </body>
+</html>
