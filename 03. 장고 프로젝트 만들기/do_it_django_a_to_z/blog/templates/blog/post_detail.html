@@ -38,6 +38,7 @@
                         <header class="mb-4">
                             <!-- Post title-->
                             <h1 class="fw-bolder mb-1">{{ post.title }}</h1>
+                            <h5 class="text-muted">{{ post.hook_text }}</h5>
                             <!-- Post author -->
                             <p class = "lead">
                                 by
@@ -52,11 +53,30 @@
                         </header>
                         <!-- Preview image figure-->
                         <figure class="mb-4">
-                            <img class="img-fluid rounded" src="{{ post.head_imag.url }}" alt="..." />
+                            {% if post.head_imag %}
+                                <img class="img-fluid rounded" src="{{ post.head_imag.url }}" alt="{{ post.title }} p.head_imag">
+                            {% else %}
+                                <img class="img-fluid rounded" src="https://picsum.photos/seed/{{ post.id }}/800/400" alt="random_image">
+                            {% endif %}
                         </figure>
                         <!-- Post content-->
                         <section class="mb-5">
                             <p>{{ post.content }}</p>
+                            첨부파일 다운로드 : 
+                            {% if post.file_upload %}
+                                <a href="{{ post.file_upload.url }}" class="bnt bnt-outline-dark" role="button">
+                                    {% if post.get_file_ext == 'csv' %}
+                                        <i class="fas fa-file-csv"></i>
+                                    {% elif post.get_file_ext == 'xlxs'  or post.get_file_ext == 'xls' %}
+                                        <i class="fas fa-file-excel"></i>
+                                    {% elif post.get_file_ext == 'docx' or post.get_file_ext == 'doc' %}
+                                        <i class="fas fa-file-excel"></i>
+                                    {% else %}
+                                        <i class="far fa-file"></i>
+                                    {% endif %}
+                                    {{ post.get_file_name }}
+                                </a>
+                            {% endif %}
                         </section>
                     </article>
                     <!-- Comments section-->
