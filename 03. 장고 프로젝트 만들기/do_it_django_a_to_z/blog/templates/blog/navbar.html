@@ -1,0 +1,57 @@
+<!-- 내비게이션 바 -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light con">
+    <div class = "container" >
+        <a class="navbar-brand" href="/">Do It Django</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="/">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/blog/">Blog</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/about_me/">About Me</a>
+                </li>
+            </ul>
+            <ul class = "navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#loginModal">Log In</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- 모달(모델 아님) -->
+<div class="modal fade" id="loginModal" tabindex=-1 role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content" role="document">
+            <div class="modal-header">
+                <h5 class="modal-title" id="loginModalLabel">로그인창입니다.</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h4>로그인</h4>
+                        <button type="button" class="btn btn-outline-primary btn-block btn-sm">구글 계정으로 로그인</button>
+                        <button type="button" class="btn btn-outline-primary btn-block btn-sm">이메일로 로그인</button>
+                    </div>
+                    <div class="col-md-6">
+                        <h4>회원가입</h4>
+                        <button type="button" class="btn btn-outline-primary btn-block btn-sm">이메일로 회원가입</button>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+            </div>
+        </div>
+    </div>
+</div>
