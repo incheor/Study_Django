@@ -1,17 +1,22 @@
 {% extends 'blog/base.html' %}
 
 {% block main-area %}
-    <h2>블로그</h2>
+    <h1>Blog {% if category %}<span class = "badge bg-secondary">{{ category }}</span>{% endif %}</h1>
     {% if post_list.exists %}
         {% for p in post_list %}
             <!-- 포스트 용 -->
-            <div class = "card md-4">
+            <div class = "card md-4" id = "post-{{ p.pk }}">
                 {% if p.head_imag %}
                     <img src="{{ p.head_imag.url }}" class="card-img-top" alt="{{ p }} head img">
                 {% else %}
                     <img src="https://picsum.photos/seed/{{ p.id }}/800/500" class="card-img-top" alt="random image">
                 {% endif %}
                 <div class = "card-body">
+                    {% if p.category %}
+                        <span class = "badge bg-secondary" style = "float:right;">{{ p.category }}</span>
+                    {% else %}
+                        <span class = "badge bg-secondary" style = "float:right;">미분류</span>
+                    {% endif %}
                     <h2 class = "card-title">{{ p.title }}</h2>
                     {% if p.hook_text %}
                         <h5 class="text-muted">{{ p.hook_text }}</h5>

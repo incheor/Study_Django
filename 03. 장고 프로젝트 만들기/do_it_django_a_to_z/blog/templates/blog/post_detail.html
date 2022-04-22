@@ -6,6 +6,11 @@
 
 {% block main-area %}
     <div id="post-area">
+        {% if post.category %}
+            <span class = "badge bg-secondary" style = "float:right;">{{ post.category }}</span>
+        {% else %}
+            <span class = "badge bg-secondary" style = "float:right;">미분류</span>
+        {% endif %}
         <!-- Post content-->
         <article>
             <!-- Post header-->
