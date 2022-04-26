@@ -17,6 +17,14 @@
             <header class="mb-4">
                 <!-- Post title-->
                 <h1 class="fw-bolder mb-1">{{ post.title }}</h1>
+                {% if post.tag.exists %}
+                    <i class = "fas fa-tag"></i>
+                    {% for tag in post.tag.iterator %}
+                        <a href = "{{ tag.get_absolute_url }}"><span class = "badge bg-pill bg-light">{{ tag }}</span></a>
+                    {% endfor %}
+                    </br>
+                    </br>
+                {% endif %}
                 <h5 class="text-muted">{{ post.hook_text }}</h5>
                 <!-- Post author -->
                 <p class = "lead">
@@ -41,9 +49,9 @@
             <!-- Post content-->
             <section class="mb-5">
                 <p>{{ post.content }}</p>
-                첨부파일 다운로드 : 
                 {% if post.file_upload %}
                     <a href="{{ post.file_upload.url }}" class="bnt bnt-outline-dark" role="button">
+                        첨부파일 다운로드 : 
                         {% if post.get_file_ext == 'csv' %}
                             <i class="fas fa-file-csv"></i>
                         {% elif post.get_file_ext == 'xlxs'  or post.get_file_ext == 'xls' %}

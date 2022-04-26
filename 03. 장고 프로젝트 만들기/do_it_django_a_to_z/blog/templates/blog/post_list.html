@@ -1,7 +1,11 @@
 {% extends 'blog/base.html' %}
 
 {% block main-area %}
-    <h1>Blog {% if category %}<span class = "badge bg-secondary">{{ category }}</span>{% endif %}</h1>
+    <h1>
+        Blog
+        {% if category %}<span class = "badge bg-secondary">{{ category }}</span>{% endif %}
+        {% if tag %}<span class = "badge bg-secondary">{{ tag }}</span>{% endif %}
+    </h1>
     {% if post_list.exists %}
         {% for p in post_list %}
             <!-- 포스트 용 -->
@@ -22,6 +26,14 @@
                         <h5 class="text-muted">{{ p.hook_text }}</h5>
                     {% endif %}
                     <p class="card-text">{{ p.content | truncatewords:45 }}</p>
+                    {% if p.tag.exists %}
+                        <i class = "fas fa-tag"></i>
+                        {% for tag in p.tag.iterator %}
+                            <a href = "{{ tag.get_absolute_url }}"><span class = "badge bg-pill bg-light">{{ tag }}</span></a>
+                        {% endfor %}
+                        </br>
+                        </br>
+                    {% endif %}
                     <a class="btn btn-primary" href = "{{ p.get_absolute_url }}">더 읽어보기</a>
                 </div>
                 <div class = "card-footer text-muted">
