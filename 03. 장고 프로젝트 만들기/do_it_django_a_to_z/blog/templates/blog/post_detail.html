@@ -20,7 +20,7 @@
                 {% if post.tag.exists %}
                     <i class = "fas fa-tag"></i>
                     {% for tag in post.tag.iterator %}
-                        <a href = "{{ tag.get_absolute_url }}"><span class = "badge bg-pill bg-light">{{ tag }}</span></a>
+                        <a href = "{{ tag.get_absolute_url }}"><span class = "badge bg-light text-dark">{{ tag }}</span></a>
                     {% endfor %}
                     </br>
                     </br>
@@ -34,9 +34,6 @@
                 <hr/>
                 <!-- Post meta content-->
                 <div class="text-muted fst-italic mb-2">{{ post.create_at }}</div>
-                <!-- Post categories-->
-                <a class="badge bg-secondary text-decoration-none link-light" href="#!">Web Design</a>
-                <a class="badge bg-secondary text-decoration-none link-light" href="#!">Freebies</a>
             </header>
             <!-- Preview image figure-->
             <figure class="mb-4">
