@@ -8,8 +8,8 @@ class TestView(TestCase) :
     def setUp(self) :
         self.client = Client()
         # 유저명이 trump, obama인 유저 생성
-        self.user_trump = User.objects.create(username = 'trump', password = 'somepassword')
-        self.user_obama = User.objects.create(username = 'obama', password = 'somepassword')
+        self.user_trump = User.objects.create_user(username = 'trump', password = 'somepassword')
+        self.user_obama = User.objects.create_user(username = 'obama', password = 'somepassword')
         
         # Category 레코드 생성
         self.category_programming = Category.objects.create(name = 'programming', slug = 'programming')
@@ -258,6 +258,13 @@ class TestView(TestCase) :
         self.assertNotIn(self.post_003.title, main_area.text)
         
     def test_create_post(self) :
+        # 로그인하지 않으면 status_code가 200이면 안 됨
+        response = self.client.get('/blog/create_post/')
+        self.assertNotEqual(response.status_code, 200)
+        
+        # 로그인하기
+        self.client.login(username = 'trump', password = 'somepassword')
+        
         response = self.client.get('/blog/create_post/')
         self.assertEqual(response.status_code, 200)
         soup = BeautifulSoup(response.content, 'html.parser')
@@ -265,3 +272,16 @@ class TestView(TestCase) :
         self.assertEqual('Create Post - Blog', soup.title.text)
         main_area = soup.find('div', id = 'main-area')
         self.assertIn('Create New Post', main_area.text)
+        
+        # 포스트 작성 페이지에서 포스트를 작성한 후 submit 버튼 클릭하는 행동 구현
+        self.client.post(
+            '/blog/create_post/',
+            {
+                'title' : 'Post Form 만들기',
+                'content' : 'Post Form 페이지를 만듭시다.',
+            }
+        )
+        self.assertEqual(Post.objects.count(), 4)
+        last_post = Post.objects.last()
+        self.assertEqual(last_post.title, 'Post Form 만들기')
+        self.assertEqual(last_post.author.username, 'trump')
