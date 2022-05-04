@@ -3,7 +3,7 @@ from unicodedata import category
 from urllib import response
 from django.test import TestCase, Client
 from bs4 import BeautifulSoup
-from .models import Post, Category, Tag
+from .models import Post, Category, Tag, Comment
 from django.contrib.auth.models import User
 
 class TestView(TestCase) :
@@ -49,6 +49,13 @@ class TestView(TestCase) :
         )
         self.post_003.tag.add(self.tag_python_kor)
         self.post_003.tag.add(self.tag_python)
+        
+        # 댓글 작성하기
+        self.comment_001 = Comment.objects.create(
+            post = self.post_001,
+            author = self.user_obama,
+            content = '첫 번째 댓글입니다.'
+        )
 
     # category_card_test 함수
     def category_card_test(self, soup) :
@@ -222,6 +229,12 @@ class TestView(TestCase) :
         self.assertNotIn(self.tag_python_kor.name, post_area.text)
         self.assertNotIn(self.tag_python.name, post_area.text)
         
+        # 댓글이 있는지 확인함
+        comments_area = soup.find('div', id = 'comment-area')
+        comment_001_area = comments_area.find('div', id = 'comment-1')
+        self.assertIn(self.comment_001.author.username, comment_001_area.text)
+        self.assertIn(self.comment_001.content, comment_001_area.text)
+        
     def test_category_page(self) :
         # 원래는 Post 모델에서 get_absolute_url로 고유 url을 만들었던 것처럼 Category 모델에서도 만들어야 하지만
         # 나중에 만들기로 하고 일단 테스트 코드에 넣어서 그 페이지를 읽어오고 status_code가 200인지 확인
@@ -364,3 +377,48 @@ class TestView(TestCase) :
         self.assertIn('한글 태그', main_area.text)
         self.assertIn('some tag', main_area.text)
         self.assertNotIn('python', main_area.text)
+        
+    def test_comment_form(self) :
+        self.assertEqual(Comment.objects.count(), 1)
+        self.assertEqual(self.post_001.comment_set.count(), 1)
+        
+        # 로그인하지 않은 상태
+        response = self.client.get(self.post_001.get_absolute_url())
+        self.assertEqual(response.status_code, 200)
+        soup = BeautifulSoup(response.content, 'html.parser')
+        
+        comment_area = soup.find('div', id = 'comment-area')
+        self.assertIn('Sign in and leave a comment', comment_area.text)
+        self.assertFalse(comment_area.find('form', id='comment-form'))
+        
+        self.client.login(username='obama', password='somepassword')
+        response = self.client.get(self.post_001.get_absolute_url())
+        self.assertEqual(response.status_code, 200)
+        soup = BeautifulSoup(response.content, 'html.parser')
+        
+        comment_area = soup.find('div', id='comment-area')
+        self.assertNotIn('Sign in and leave a comment', comment_area.text)
+        
+        comment_form = comment_area.find('form', id='comment-form')
+        self.assertTrue(comment_form.find('textarea', id='id_content'))
+        response = self.client.post(
+            self.post_001.get_absolute_url() + 'new_comment/',
+            {
+                'content' : '오바마의 댓글입니다.',
+            },
+            follow = True
+        )
+        
+        self.assertEqual(response.status_code, 200)
+        
+        self.assertEqual(Comment.objects.count(), 2)
+        self.assertEqual(self.post_001.comment_set.count(), 2)
+        new_comment = Comment.objects.last()
+        
+        soup = BeautifulSoup(response.content, 'html.parser')
+        self.assertIn(new_comment.post.title, soup.title.text)
+        
+        comment_area = soup.find('div', id='comment-area')
+        new_comment_div = comment_area.find('div', id=f'comment-{new_comment.pk}')
+        self.assertIn('obama', new_comment_div.text)
+        self.assertIn('오바마의 댓글입니다.', new_comment_div.text)

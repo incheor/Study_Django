@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'markdownx',
     'django.contrib.sites',
     'allauth',
+    'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
     
@@ -149,3 +150,7 @@ SITE_ID = 1
 
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_EMAIL_VERIFICATION = 'none'
+
+CSRF_TRUSTED_ORIGINS=['http://127.0.0.1:8000/']
+
+LOGIN_REDIRECT_URL = '/blog/'

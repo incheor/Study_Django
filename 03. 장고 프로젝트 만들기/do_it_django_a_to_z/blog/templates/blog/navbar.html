@@ -1,3 +1,5 @@
+{% load socialaccount %}
+
 <!-- 내비게이션 바 -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light con">
     <div class = "container" >
@@ -18,32 +20,51 @@
                 </li>
             </ul>
             <ul class = "navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#loginModal">Log In</a>
-                </li>
+                {% if user.is_authenticated %}
+                    <li class = "nav-item dropdown">
+                        <a class = "nav-link dropdown-toggle" href = "#" id = "navbarDropdownMenuLink" role = "button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            {{ user.username }}
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <a class="dropdown-item" href="/accounts/logout/">Sign Out</a>
+                        </div>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#loginModal">Sign In</a>
+                    </li>
+                {% endif %}
             </ul>
         </div>
     </div>
 </nav>
 
+
+
 <!-- 모달(모델 아님) -->
-<div class="modal fade" id="loginModal" tabindex=-1 role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
+<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="loginModalLabel">Log in</h5>
+                <h5 class="modal-title" id="loginModalLabel"><i class="fas fa-sign-in-alt"></i>&nbsp</h5>Sign in</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
+                <style>
+                    #modal-a {
+                        margin-top : 10px;
+                        margin-bottom : 10px;
+                    }
+                </style>
                 <div class="row">
                     <div class="col-md-6">
-                        <a role="button" class="btn btn-outline-dark btn-block btn-sm" href="#}">Log in with Google</a>
-                        <a role="button" class="btn btn-outline-dark btn-block btn-sm" href="#">&nbsp&nbsp Log in with E-mail</a>
+                        <a id="modal-a" role="button" class="btn btn-outline-dark btn-sm col-12" href="{% provider_login_url 'google' %}"><i class="fab fa-google"></i>&nbsp&nbsp Sign  in with Google</a>
+                        <a id="modal-a" role="button" class="btn btn-outline-dark btn-sm col-12" href="/accounts/login/"><i class="far fa-envelope"></i>&nbsp&nbsp Sign in with E-mail</a>
                     </div>
                     <div class="col-md-6">
-                        <a role="button" class="btn btn-outline-dark btn-block btn-sm" href="/accounts/signup/"><i class="far fa-envelope"></i>&nbsp&nbsp Sign Up with E-mail</a>
+                        <a id="modal-a" role="button" class="btn btn-outline-dark btn-sm col-12" href="/accounts/signup/"><i class="far fa-envelope"></i>&nbsp&nbsp Sign Up with E-mail</a>
                     </div>
                 </div>
             </div>
