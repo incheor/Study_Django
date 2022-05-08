@@ -21,4 +21,4 @@ Do it Django 책 보면서 만들어본거
 <img width="1671" alt="image" src="https://user-images.githubusercontent.com/97490436/167282688-f8bb8d28-b83b-403f-87cd-6eaacec79888.png">
 
 - 댓글 생성 및 수정
-<img width="1671" alt="image" src="https://user-images.githubusercontent.com/97490436/167282708-9e4d5922-6fbb-4ba8-8352-4f9115202b4a.png">
+<img width="1671" alt="image" src="https://user-images.githubusercontent.com/97490436/167282738-5745f19e-9bc0-4cba-9991-c0d788475bfb.png">
