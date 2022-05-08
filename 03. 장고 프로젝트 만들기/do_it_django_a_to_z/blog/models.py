@@ -64,6 +64,12 @@ class Post(models.Model) :
     
     def get_content_markdown(self) :
         return markdown(self.content)
+
+    def get_avatar_url(self) :
+        if self.author.socialaccount_set.exists() :
+            return self.author.socialaccount_set.first().get_avatar_url()
+        else :
+            return f'https://avatars.dicebear.com/api/micah/{self.author.email}.svg?mood[]=happy&mood[]=sad'
     
 # 댓글(Comment) 모델
 class Comment(models.Model) :

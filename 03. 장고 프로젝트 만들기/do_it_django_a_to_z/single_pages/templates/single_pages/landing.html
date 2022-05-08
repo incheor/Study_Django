@@ -1,17 +1,64 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang= 'ko'>
     <head>
         <mata charset = 'UTF-8'>
         <title>대문 페이지</title>
+        <link rel="stylesheet" href="{% static 'blog/bootstrap4/bootstrap.min.css' %}" media="screen">
+        <link rel="stylesheet" href="{% static 'single_pages/css/landing.css' %}" media="screen">
+        <script src="https://kit.fontawesome.com/27d06cdd02.js" crossorigin="anonymous"></script>
     </head>
     <body>
-        <nav>
-            <a href = '/blog/'>blog</a>
-            <a href = '/about_me'>about_me</a>
-        </nav>
+        {% include 'blog/navbar.html' %}
 
-        <h1>안녕하세요!</h1>
-        <h2>대문 페이지</h2>
-        <h3>아직 안 만듬</h3>
+        <section>
+            <div class="container">
+                <div class="row justify-content-between">
+                    <div class="col-lg-6 text-light">
+                        <h1 class="mt-5">대문 페이지입니다</h1>
+                        <p>
+                            파이썬의 대표적인 웹프레임워크인 장고로 만든 페이지입니다
+                        </p>
+                    </div>
+
+                    <div class="col-lg-5 mt-5">
+                        <h2 class="text-light">Blog - Recent Posts</h2>
+                        {% for post in recent_posts %}
+                            <div class="card mt-1">
+                                <div class="card-body">
+                                    <h6>
+                                        <a href="{{ post.get_absolute_url }}" class="text-decoration-none text-dark">
+                                            {{ post.title }}
+                                        </a>
+                                    </h6>
+                                    <h6>
+                                        <a href="{{ post.get_absolute_url }}" class="text-decoration-none text-dark">
+                                            {{ post.content | truncatewords_html:10 | safe }}
+                                        </a>
+                                    </h6>
+                                    <a href="{{ post.get_absolute_url }}" class="text-decoration-none text-dark">
+                                        <span class="badge rounded-pill  bg-light text-dark" style="float:right">
+                                            <img class="mr-1 rounded-circle" width="30px" src="{{ post.get_avatar_url }}" alt="{{ post.author }}">
+                                            {{ post.author.username }}
+                                            &nbsp;
+                                            &nbsp;
+                                            &nbsp;
+                                            {{ post.create_at }}
+                                        </span>
+                                    </a>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class ="fixed-bottom">
+            {% include 'blog/footer.html' %}
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
     </body>
 </html>
