@@ -8,7 +8,7 @@ Do it Django 책 보면서 만들어본거
 - 잡담 페이지
 <img width="1671" alt="image" src="https://user-images.githubusercontent.com/97490436/167282573-3cac8275-0576-48f4-a955-28b353fbb944.png">
 
-- 블로그 포스트 리스느 페이지
+- 블로그 포스트 리스트 페이지
 <img width="1671" alt="image" src="https://user-images.githubusercontent.com/97490436/167282602-3466622b-8ffe-4144-8d8c-1fd995f53b46.png">
 
 - 블로그 포스트 상세 페이지
